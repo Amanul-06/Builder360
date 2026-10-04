@@ -1,18 +1,23 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     setError("");
+    setLoading(true);
 
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/auth/login`,
+        "https://builder360-aquo.onrender.com/api/auth/login",
         {
           method: "POST",
           headers: {
@@ -28,52 +33,66 @@ const Login = () => {
       const data = await response.json();
 
       if (!response.ok) {
-        setError(data.message || "Login failed");
-        return;
+        throw new Error(data.message || "Login failed");
       }
+
+      console.log("Login successful:", data);
 
       localStorage.setItem("token", data.token);
 
-      localStorage.setItem("user", JSON.stringify(data.user));
+      localStorage.setItem("role", data.user?.role || data.role || "");
 
-      window.location.href = "/dashboard";
+      navigate("/dashboard");
     } catch (error) {
       console.error("Login error:", error);
-      setError("Unable to connect to the server");
+
+      setError(error.message || "Unable to connect to the server");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div>
-      <h1>Builder360 Login</h1>
+    <div className="login-page">
+      <div className="login-card">
+        <h1>Builder360</h1>
 
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="email">Email</label>
-          <input
-            id="email"
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
+        <p>Admin Login</p>
 
-        <div>
-          <label htmlFor="password">Password</label>
-          <input
-            id="password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
+        <form onSubmit={handleSubmit}>
+          <div>
+            <label htmlFor="email">Email</label>
 
-        {error && <p>{error}</p>}
+            <input
+              id="email"
+              type="email"
+              placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
 
-        <button type="submit">Login</button>
-      </form>
+          <div>
+            <label htmlFor="password">Password</label>
+
+            <input
+              id="password"
+              type="password"
+              placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+
+          {error && <p className="login-error">{error}</p>}
+
+          <button type="submit" disabled={loading}>
+            {loading ? "Logging in..." : "Login"}
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
