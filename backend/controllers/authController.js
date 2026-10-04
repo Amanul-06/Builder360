@@ -13,7 +13,11 @@ export const registerUser = async (req, res) => {
             });
         }
 
-        const existingUser = await User.findOne({ email });
+        const normalizedEmail = email.toLowerCase().trim();
+
+        const existingUser = await User.findOne({
+            email: normalizedEmail,
+        });
 
         if (existingUser) {
             return res.status(400).json({
@@ -26,7 +30,7 @@ export const registerUser = async (req, res) => {
 
         const user = await User.create({
             name,
-            email,
+            email: normalizedEmail,
             password: hashedPassword,
             role: role || "staff",
         });
@@ -61,7 +65,11 @@ export const loginUser = async (req, res) => {
             });
         }
 
-        const user = await User.findOne({ email });
+        const normalizedEmail = email.toLowerCase().trim();
+
+        const user = await User.findOne({
+            email: normalizedEmail,
+        });
 
         if (!user) {
             return res.status(401).json({
