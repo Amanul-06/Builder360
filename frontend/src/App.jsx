@@ -1,14 +1,18 @@
-function App() {
+import React from "react";
+import Navbar from "./components/Navbar/Navbar";
+import Hero from "./components/Hero/Hero";
+import Footer from "./components/Footer/Footer";
+
+const App = () => {
   return (
-    <main>
-      <section className="section">
-        <div className="container">
-          <h1>Builder360</h1>
-          <p>Infrastructure & Contractor Management</p>
-        </div>
-      </section>
-    </main>
+    <>
+      <Navbar />
+      <main>
+        <Hero />
+      </main>
+      <Footer />
+    </>
   );
-}
+};
 
 export default App;

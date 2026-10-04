@@ -1,0 +1,245 @@
+.navbar {
+  width: 100%;
+  height: 108px;
+
+  background-color: #17212b;
+
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  transition: height 0.3s ease;
+}
+
+.navbar-scrolled {
+  height: 72px;
+}
+
+.navbar-container {
+  width: 100%;
+  max-width: 1400px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 32px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* =========================
+   LOGO
+========================= */
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.logo-icon {
+  width: 42px;
+  height: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: #f59e0b;
+  color: #17212b;
+
+  border-radius: 8px;
+
+  font-size: 21px;
+  font-weight: 800;
+
+  transition: all 0.3s ease;
+}
+
+.logo-text {
+  font-size: 25px;
+  font-weight: 800;
+  letter-spacing: -0.7px;
+
+  transition: all 0.3s ease;
+}
+
+.navbar-scrolled .logo-icon {
+  width: 36px;
+  height: 36px;
+
+  font-size: 18px;
+}
+
+.navbar-scrolled .logo-text {
+  font-size: 22px;
+}
+
+/* =========================
+   NAVIGATION LINKS
+========================= */
+
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 34px;
+
+  margin-left: auto;
+  margin-right: 42px;
+}
+
+.navbar-links a {
+  position: relative;
+
+  color: #ffffff;
+  text-decoration: none;
+
+  font-size: 15px;
+  font-weight: 500;
+
+  transition: color 0.2s ease;
+}
+
+.navbar-links a:hover {
+  color: #f59e0b;
+}
+
+/* =========================
+   ACTIONS
+========================= */
+
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.login-link {
+  color: #ffffff;
+  text-decoration: none;
+
+  font-size: 15px;
+  font-weight: 500;
+
+  transition: color 0.2s ease;
+}
+
+.login-link:hover {
+  color: #f59e0b;
+}
+
+.get-started-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 11px 18px;
+
+  background-color: #f59e0b;
+  color: #17212b;
+
+  border-radius: 7px;
+
+  text-decoration: none;
+
+  font-size: 15px;
+  font-weight: 700;
+
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.get-started-btn span {
+  font-size: 18px;
+  line-height: 1;
+
+  transition: transform 0.2s ease;
+}
+
+.get-started-btn:hover {
+  background-color: #d97706;
+}
+
+.get-started-btn:hover span {
+  transform: translateX(3px);
+}
+
+/* =========================
+   MOBILE MENU BUTTON
+========================= */
+
+.mobile-menu-btn {
+  display: none;
+
+  width: 42px;
+  height: 42px;
+
+  padding: 8px;
+
+  border: none;
+  background: transparent;
+
+  cursor: pointer;
+
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+}
+
+.mobile-menu-btn span {
+  display: block;
+
+  width: 24px;
+  height: 2px;
+
+  background-color: #ffffff;
+
+  border-radius: 2px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 900px) {
+  .navbar-links,
+  .navbar-actions {
+    display: none;
+  }
+
+  .mobile-menu-btn {
+    display: flex;
+  }
+
+  .navbar-container {
+    padding: 0 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar-container {
+    padding: 0 18px;
+  }
+
+  .logo-text {
+    font-size: 21px;
+  }
+
+  .logo-icon {
+    width: 38px;
+    height: 38px;
+  }
+
+  .navbar-scrolled .logo-text {
+    font-size: 20px;
+  }
+
+  .navbar-scrolled .logo-icon {
+    width: 34px;
+    height: 34px;
+  }
+}
