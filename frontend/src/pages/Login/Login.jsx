@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 
-const Login = () => {
+const LoginPage = () => {
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -16,37 +18,19 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const response = await fetch(
-        "https://builder360-aquo.onrender.com/api/auth/login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email,
-            password,
-          }),
-        },
-      );
+      const result = await login(email, password);
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || "Login failed");
+      if (result.success) {
+        navigate("/admin");
+      } else {
+        setError(result.message || "Login failed");
       }
-
-      console.log("Login successful:", data);
-
-      localStorage.setItem("token", data.token);
-
-      localStorage.setItem("role", data.user?.role || data.role || "");
-
-      navigate("/dashboard");
     } catch (error) {
       console.error("Login error:", error);
 
-      setError(error.message || "Unable to connect to the server");
+      setError(
+        error.response?.data?.message || "Unable to connect to the server",
+      );
     } finally {
       setLoading(false);
     }
@@ -97,4 +81,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginPage;

@@ -8,6 +8,7 @@ export const registerUser = async (req, res) => {
 
         if (!name || !email || !password) {
             return res.status(400).json({
+                success: false,
                 message: "Name, email and password are required",
             });
         }
@@ -16,6 +17,7 @@ export const registerUser = async (req, res) => {
 
         if (existingUser) {
             return res.status(400).json({
+                success: false,
                 message: "User already exists",
             });
         }
@@ -30,6 +32,7 @@ export const registerUser = async (req, res) => {
         });
 
         res.status(201).json({
+            success: true,
             message: "User created successfully",
             user: {
                 id: user._id,
@@ -40,11 +43,12 @@ export const registerUser = async (req, res) => {
         });
     } catch (error) {
         res.status(500).json({
+            success: false,
             message: "Server error",
             error: error.message,
         });
     }
-  };
+};
 
 export const loginUser = async (req, res) => {
     try {
@@ -52,6 +56,7 @@ export const loginUser = async (req, res) => {
 
         if (!email || !password) {
             return res.status(400).json({
+                success: false,
                 message: "Email and password are required",
             });
         }
@@ -60,6 +65,7 @@ export const loginUser = async (req, res) => {
 
         if (!user) {
             return res.status(401).json({
+                success: false,
                 message: "Invalid email or password",
             });
         }
@@ -71,6 +77,7 @@ export const loginUser = async (req, res) => {
 
         if (!isPasswordCorrect) {
             return res.status(401).json({
+                success: false,
                 message: "Invalid email or password",
             });
         }
@@ -87,6 +94,7 @@ export const loginUser = async (req, res) => {
         );
 
         res.status(200).json({
+            success: true,
             message: "Login successful",
             token,
             user: {
@@ -98,9 +106,9 @@ export const loginUser = async (req, res) => {
         });
     } catch (error) {
         res.status(500).json({
+            success: false,
             message: "Server error",
             error: error.message,
         });
     }
-  };
-
+};
