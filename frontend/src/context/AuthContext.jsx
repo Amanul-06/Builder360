@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState } from "react";
 
 const AuthContext = createContext();
 
-const API_URL = "http://localhost:5001";
+const API_URL = "https://builder360-aquo.onrender.com";
 
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token"));
